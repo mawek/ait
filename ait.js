@@ -114,12 +114,16 @@ AIT.init = function aitInit(options, callback) {
         browser.init({ browserName: options.browserName || 'phantomjs' });
 
         // convenience aliases
-        browser.screenshot = function screenshot(filename) {
+        browser.screenshot = function screenshot(filename, error) {
             var data = browser.takeScreenshot();
+            var dir = options.screenshotsDir || 'ait-screenshots';
+
+            if (error && options.errorScreenshotsDir) {
+                dir = options.errorScreenshotsDir;
+            }
 
             filename = filename || 'ait-screenshot-' + new Date().getTime() + '.png';
 
-            var dir = options.screenshotsDir || 'ait-screenshots';
 
             var fs = require('fs');
             if (!path.existsSync(dir)) fs.mkdirSync(dir);

@@ -71,7 +71,7 @@ var wrappedIt = function(desc, fn) {
             if (ex.cause && ex.cause.value && ex.cause.value.message) {
                 console.log(ex.cause.value.message);
             }
-            AIT.browser.screenshot('ait-error-' + new Date().getTime() + '.png');
+            AIT.browser.screenshot('ait-error-' + desc.replace(/[^a-zA-Z]/g, '_') + '.png');
 
             AIT.browser.quit(function() {
                 throw ex;
